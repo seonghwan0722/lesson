@@ -1,0 +1,58 @@
+git 실행
+git init
+
+git 스테이징  (커밋할 파일 선택)
+git add [파일명] (파일 하나)
+git add [파일명] [파일명].... (파일 여러개)
+git add . (폴더 안의 모든 파일 선택)
+
+git 스테이징 초기화
+git restore --staged 파일명
+
+git 커밋
+git commit -m '메시지'
+
+git 상태
+지금 변경된 파일, 스테이징된 파일 이런걸 쭉 알려줍니다. 
+지금 뭐 하는지 까먹었을 때도 자주 입력하게 됩니다. 
+git status
+
+git 로그 확인
+git log --all --oneline (--graph 옵션을 넣으면 그래프로 그려줍니다)
+
+git diff (최근 commit 과 현재 파일 차이점 보여줌)
+git difftool(차이점 시각적으로 표현)  
+git difftool [커밋 ID1] [커밋 ID2] 특정 commit과의 차이점 보여줌)[최대 2개]
+
+git vim파일 말고 다르게 보기
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd 'code --wait --diff $LOCAL $REMOTE'
+
+브랜치 생성은 git branch 브랜치명 [버전의 가지를 만드는 개념]
+브랜치 이동은 git switch 브랜치명 
+브랜치 합치기는 main/master 브랜치로 이동한 뒤에 git merge 브랜치명
+브랜치마다 commit 내역을 그래프로 보고싶으면 git log --graph --oneline --all
+브랜치 합칠 때[merge] conflict가 발생하면(각각 같은 파일의 같은 문장일때 주로 발생)
+ 파일열어서 수정하고 git add, git commit 하기 
+
+merge가 되는 경우가 2가지 있는데
+하나는 (3-way merge) main branch와 새 branch에서 각각 신규 commit이 있는 경우 (아까까지의 경우)
+
+다른 하나는 (fast-forward merge) main branch에 신규 커밋이 없는 경우 merge하는 경우 (이때는 그냥 새로 생성된 branch가 main branch가 됨
+
+merge 완료된 브랜치 삭제는
+git branch -d 브랜치명
+merge 안한 브랜치 삭제는
+git branch -D 브랜치명
+
+rebase& merge 
+1. 새로운 브랜치로 먼저 이동해서 (git switch [새브랜치])
+2. git rebase main 하면 됩니다.  
+3. 그럼 브랜치가 main 브랜치 끝으로 이동하는데(git switch [중심브랜치])
+4. 그걸 fast-forward merge 하면 됩니다. (git merge [새브랜치])
+
+장점 : 단순한 브랜치가 많으면 더러워짐
+단점 :  conflict 가 많음
+
+squash & merge (새브런치의 로그가 안남고 새로운 커밋을 생성)
+git merge --squash 새브런치 
